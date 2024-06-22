@@ -5,6 +5,8 @@ import hhplus.lectures.domain.LectureRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class LectureRepositoryImpl implements LectureRepository {
@@ -18,6 +20,11 @@ public class LectureRepositoryImpl implements LectureRepository {
     public Lecture findById(Long id) {
         return lectureJpaRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 강의가 존재하지 않습니다."));
+    }
+
+    @Override
+    public List<Lecture> findAll() {
+        return lectureJpaRepository.findAll();
     }
 
 }

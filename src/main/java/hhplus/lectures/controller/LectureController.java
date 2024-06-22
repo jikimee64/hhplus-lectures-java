@@ -3,9 +3,13 @@ package hhplus.lectures.controller;
 import hhplus.lectures.application.LectureService;
 import hhplus.lectures.application.dto.LectureApplyRequest;
 import hhplus.lectures.application.dto.LectureRegisterResultResponse;
+import hhplus.lectures.application.dto.LectureSelectResponse;
+import hhplus.lectures.domain.Lecture;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/lectures")
@@ -20,8 +24,14 @@ public class LectureController {
     }
 
     // 강의 고유값도 Path Variable로 받도록 변경
-    @PostMapping("/application/{lectureId}/{userId}")
+    @GetMapping("/application/{lectureId}/{userId}")
     public LectureRegisterResultResponse selectUserAppliedForLecture(@PathVariable Long lectureId, @PathVariable Long userId) {
         return new LectureRegisterResultResponse(lectureService.hasUserAppliedForLecture(lectureId, userId));
+    }
+
+    @GetMapping
+    public List<LectureSelectResponse> selectLectures() {
+        List<Lecture> lectures = lectureService.selectLectures();
+        return LectureSelectResponse.from(lectures);
     }
 }

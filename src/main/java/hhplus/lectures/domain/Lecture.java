@@ -42,4 +42,24 @@ public class Lecture extends BaseEntity {
     public Long getId() {
         return id;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getLimitedCount() {
+        return limitedCount;
+    }
+
+    public int getRegisteredCount() {
+        return registeredCount;
+    }
+
+    public LocalDateTime getStartDateTime() {
+        return startDateTime;
+    }
+
+    public LocalDateTime getEndDateTime() {
+        return endDateTime;
+    }
 }

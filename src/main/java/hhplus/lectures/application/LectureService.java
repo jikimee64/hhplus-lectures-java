@@ -26,4 +26,8 @@ public class LectureService {
         List<LectureRegistration> lectureRegistrations = lectureRegistrationRepository.findBy(lectureId, userId);
         return !lectureRegistrations.isEmpty();
     }
+
+    public List<Lecture> selectLectures() {
+        return lectureRepository.findAll();
+    }
 }

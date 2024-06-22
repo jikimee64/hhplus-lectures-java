@@ -9,4 +9,8 @@ public class LectureFixture {
     public static Lecture 자바_특강(long id, int registeredCount, LocalDateTime startDateTime, LocalDateTime endDateTime){
         return new Lecture(id, "자바 특강", 30, registeredCount, startDateTime, endDateTime);
     }
+
+    public static Lecture 스프링_특강(long id, int registeredCount, LocalDateTime startDateTime, LocalDateTime endDateTime){
+        return new Lecture(id, "스프링 특강", 30, registeredCount, startDateTime, endDateTime);
+    }
 }

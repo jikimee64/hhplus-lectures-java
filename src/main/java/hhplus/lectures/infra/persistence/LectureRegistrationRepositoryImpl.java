@@ -20,4 +20,6 @@ public class LectureRegistrationRepositoryImpl implements LectureRegistrationRep
     public List<LectureRegistration> findBy(Long lectureId, Long userId) {
         return lectureRegistrationJpaRepository.findByLectureIdAndUserId(lectureId, userId);
     }
+
+
 }
