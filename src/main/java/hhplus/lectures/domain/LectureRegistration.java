@@ -1,14 +1,15 @@
 package hhplus.lectures.domain;
 
-import com.google.common.annotations.VisibleForTesting;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Entity
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class LectureRegistration extends BaseEntity {
 
@@ -19,13 +20,6 @@ public class LectureRegistration extends BaseEntity {
     private Long lectureId;
 
     private Long userId;
-
-    @VisibleForTesting
-    public LectureRegistration(Long id, Long lectureId, Long userId) {
-        this.id = id;
-        this.lectureId = lectureId;
-        this.userId = userId;
-    }
 
     public LectureRegistration(Long lectureId, Long userId) {
         this.lectureId = lectureId;

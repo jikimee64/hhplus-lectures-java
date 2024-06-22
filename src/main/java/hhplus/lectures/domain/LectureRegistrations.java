@@ -11,9 +11,10 @@ public class LectureRegistrations {
         this.lectureRegistrations = new ArrayList<>(lectureRegistrations);
     }
 
-    public LectureRegistration register(long userId, long lectureId) {
-        checkDuplicateRegistration(userId, lectureId);
-        return new LectureRegistration(userId, lectureId);
+    public LectureRegistration register(long userId, Lecture lecture) {
+        checkDuplicateRegistration(userId, lecture.getId());
+        validateOverStartDateTime(lecture);
+        return new LectureRegistration(userId, lecture.getId());
     }
 
     private void checkDuplicateRegistration(long userId, long lectureId) {
@@ -22,6 +23,12 @@ public class LectureRegistrations {
 
         if (isDuplicate) {
             throw new RuntimeException("이미 신청한 특강입니다.");
+        }
+    }
+
+    private void validateOverStartDateTime(Lecture lecture) {
+        if(lecture.isOverStartDateTime()) {
+            throw new RuntimeException("특강 시작일자가 이미 지났습니다.");
         }
     }
 }
