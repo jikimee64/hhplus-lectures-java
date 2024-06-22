@@ -1,6 +1,6 @@
 package hhplus.lectures.application;
 
-import hhplus.lectures.domain.Lecture;
+import hhplus.lectures.IntegrationTest;
 import hhplus.lectures.domain.LectureRegistration;
 import hhplus.lectures.domain.LectureRegistrationRepository;
 import hhplus.lectures.domain.LectureRepository;
@@ -16,7 +16,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.tuple;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 @SpringBootTest
-class LectureServiceTest {
+class LectureServiceTest extends IntegrationTest {
 
     @Autowired
     private LectureService lectureService;
@@ -46,6 +46,36 @@ class LectureServiceTest {
                 .containsExactly(
                         tuple(userId, lectureId)
                 );
+    }
+
+    @Test
+    void 특강_등록자_명단에_존재하는_사용자는_true를_반환받는다() {
+        // given
+        lectureRepository.save(
+                자바_특강(1L, 0, LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(1).plusHours(2))
+        );
+        long userId = 1L;
+        long lectureId = 1L;
+        lectureService.apply(lectureId, userId);
+
+        // when
+        boolean isRegistered= lectureService.hasUserAppliedForLecture(lectureId, userId);
+
+        // then
+        assertThat(isRegistered).isTrue();
+    }
+
+    @Test
+    void 특강_등록자_명단에_존재하지_않는_사용자는_false를_반환받는다() {
+        // given
+        long userId = 1L;
+        long lectureId = 1L;
+
+        // when
+        boolean isRegistered= lectureService.hasUserAppliedForLecture(lectureId, userId);
+
+        // then
+        assertThat(isRegistered).isFalse();
     }
 
 }

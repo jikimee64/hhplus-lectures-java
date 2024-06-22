@@ -4,6 +4,8 @@ import hhplus.lectures.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class LectureService {
@@ -20,4 +22,8 @@ public class LectureService {
         lectureRegistrationRepository.save(lectureRegistration);
     }
 
+    public boolean hasUserAppliedForLecture(long lectureId, long userId) {
+        List<LectureRegistration> lectureRegistrations = lectureRegistrationRepository.findBy(lectureId, userId);
+        return !lectureRegistrations.isEmpty();
+    }
 }
