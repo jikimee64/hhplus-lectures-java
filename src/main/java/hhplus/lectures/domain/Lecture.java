@@ -35,7 +35,7 @@ public class Lecture extends BaseEntity {
 
     public void validateLimitedRegisterCount() {
         if(this.limitedCount <= this.registeredCount){
-            throw new IllegalArgumentException("신청 가능한 인원을 초과하였습니다.");
+            throw new RuntimeException("신청 가능한 인원을 초과하였습니다.");
         }
     }
 
