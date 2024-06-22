@@ -14,6 +14,7 @@ public class LectureRegistrations {
     public LectureRegistration register(long userId, Lecture lecture) {
         checkDuplicateRegistration(userId, lecture.getId());
         validateOverStartDateTime(lecture);
+        lecture.validateLimitedRegisterCount();
         return new LectureRegistration(userId, lecture.getId());
     }
 

@@ -33,15 +33,10 @@ public class Lecture extends BaseEntity {
         return LocalDateTime.now().isAfter(startDateTime);
     }
 
-    public Lecture increaseRegisteredCount() {
-        return new Lecture(
-              this.id,
-              this.name,
-              this.limitedCount,
-              this.registeredCount + 1,
-              this.startDateTime,
-              this.endDateTime
-        );
+    public void validateLimitedRegisterCount() {
+        if(this.limitedCount <= this.registeredCount){
+            throw new IllegalArgumentException("신청 가능한 인원을 초과하였습니다.");
+        }
     }
 
     public Long getId() {
