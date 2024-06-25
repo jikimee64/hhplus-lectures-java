@@ -13,7 +13,7 @@ public class LectureTest {
     @Test
     void 특강_시작시간이_지난경우_true_반환() {
         // given
-        Lecture lecture = 자바_특강(1L, 10, LocalDateTime.now().minusSeconds(1L), LocalDateTime.now().plusDays(1).plusHours(2));
+        Lecture lecture = 자바_특강( 10, LocalDateTime.now().minusSeconds(1L), LocalDateTime.now().plusDays(1).plusHours(2));
 
         // when & then
         assertThat(lecture.isOverStartDateTime()).isTrue();
@@ -22,7 +22,7 @@ public class LectureTest {
     @Test
     void 특강_시작시간이_지나지_않은_경우_false_반환() {
         // given
-        Lecture lecture = 자바_특강(1L, 10, LocalDateTime.now().plusSeconds(1L), LocalDateTime.now().plusDays(1).plusHours(2));
+        Lecture lecture = 자바_특강(10, LocalDateTime.now().plusSeconds(1L), LocalDateTime.now().plusDays(1).plusHours(2));
 
         // when & then
         assertThat(lecture.isOverStartDateTime()).isFalse();
@@ -31,7 +31,7 @@ public class LectureTest {
     @Test
     void 특강_제한인원이_모두_찬_경우_예외_발생() {
         // given
-        Lecture lecture = 자바_특강(1L, 30, LocalDateTime.now().minusSeconds(1L), LocalDateTime.now().plusDays(1).plusHours(2));
+        Lecture lecture = 자바_특강(30, LocalDateTime.now().minusSeconds(1L), LocalDateTime.now().plusDays(1).plusHours(2));
 
         // when & then
         assertThatThrownBy(lecture::validateLimitedRegisterCount)

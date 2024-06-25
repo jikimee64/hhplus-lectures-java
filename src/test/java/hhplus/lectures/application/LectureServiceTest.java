@@ -33,7 +33,7 @@ class LectureServiceTest extends IntegrationTest {
     void 특강_신청에_성공한다() {
         // given
         lectureRepository.save(
-                자바_특강(1L, 0, LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(1).plusHours(2))
+                자바_특강(0, LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(1).plusHours(2))
         );
         long userId = 1L;
         long lectureId = 1L;
@@ -54,7 +54,7 @@ class LectureServiceTest extends IntegrationTest {
     void 특강_등록자_명단에_존재하는_사용자는_true를_반환받는다() {
         // given
         lectureRepository.save(
-                자바_특강(1L, 0, LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(1).plusHours(2))
+                자바_특강(0, LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(1).plusHours(2))
         );
         long userId = 1L;
         long lectureId = 1L;
@@ -83,18 +83,16 @@ class LectureServiceTest extends IntegrationTest {
     @Test
     void 모든_특강을_조회한다() {
         // given
-        long javaId = 1L;
         LocalDateTime javaStartDate = LocalDateTime.now().plusDays(1);
         LocalDateTime javaEndDate = LocalDateTime.now().plusDays(1).plusHours(2);
         lectureRepository.save(
-                자바_특강(javaId, 0, javaStartDate, javaEndDate)
+                자바_특강( 0, javaStartDate, javaEndDate)
         );
 
-        long springId = 2L;
         LocalDateTime springStartDate = LocalDateTime.now().plusDays(2);
         LocalDateTime springEndDate = LocalDateTime.now().plusDays(2).plusHours(3);
         lectureRepository.save(
-                스프링_특강(springId, 0, springStartDate, springEndDate)
+                스프링_특강( 0, springStartDate, springEndDate)
         );
 
         // when
@@ -102,10 +100,10 @@ class LectureServiceTest extends IntegrationTest {
 
         // then
         assertThat(lectures).hasSize(2)
-                .extracting("id", "limitedCount", "startDateTime", "endDateTime")
+                .extracting("limitedCount", "startDateTime", "endDateTime")
                 .containsExactly(
-                        tuple(javaId, 30, javaStartDate, javaEndDate),
-                        tuple(springId, 30, springStartDate, springEndDate)
+                        tuple(30, javaStartDate, javaEndDate),
+                        tuple(30, springStartDate, springEndDate)
                 );
     }
 
