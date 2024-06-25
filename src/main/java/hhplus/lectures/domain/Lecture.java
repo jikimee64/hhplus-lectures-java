@@ -1,18 +1,13 @@
 package hhplus.lectures.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class Lecture extends BaseEntity {
 
     @Id
@@ -29,6 +24,14 @@ public class Lecture extends BaseEntity {
 
     private LocalDateTime endDateTime;
 
+    public Lecture(String name, int limitedCount, int registeredCount, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        this.name = name;
+        this.limitedCount = limitedCount;
+        this.registeredCount = registeredCount;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+    }
+
     public boolean isOverStartDateTime() {
         return LocalDateTime.now().isAfter(startDateTime);
     }
@@ -37,6 +40,7 @@ public class Lecture extends BaseEntity {
         if(this.limitedCount <= this.registeredCount){
             throw new RuntimeException("신청 가능한 인원을 초과하였습니다.");
         }
+        this.registeredCount++;
     }
 
     public Long getId() {
