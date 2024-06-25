@@ -34,7 +34,7 @@ public class LectureTest {
         Lecture lecture = 자바_특강(30, LocalDateTime.now().minusSeconds(1L), LocalDateTime.now().plusDays(1).plusHours(2));
 
         // when & then
-        assertThatThrownBy(lecture::validateLimitedRegisterCount)
+        assertThatThrownBy(lecture::increaseRegisterCount)
                 .isInstanceOf(RuntimeException.class)
                 .hasMessage("신청 가능한 인원을 초과하였습니다.");
     }

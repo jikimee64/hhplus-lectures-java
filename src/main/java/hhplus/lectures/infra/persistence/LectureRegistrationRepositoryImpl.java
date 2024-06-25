@@ -21,5 +21,9 @@ public class LectureRegistrationRepositoryImpl implements LectureRegistrationRep
         return lectureRegistrationJpaRepository.findByLectureIdAndUserId(lectureId, userId);
     }
 
+    @Override
+    public long count() {
+        return lectureRegistrationJpaRepository.count();
+    }
 
 }

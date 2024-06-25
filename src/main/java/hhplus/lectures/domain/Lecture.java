@@ -24,6 +24,9 @@ public class Lecture extends BaseEntity {
 
     private LocalDateTime endDateTime;
 
+    @Version
+    private Long version;
+
     public Lecture(String name, int limitedCount, int registeredCount, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         this.name = name;
         this.limitedCount = limitedCount;
@@ -36,9 +39,9 @@ public class Lecture extends BaseEntity {
         return LocalDateTime.now().isAfter(startDateTime);
     }
 
-    public void validateLimitedRegisterCount() {
+    public void increaseRegisterCount() {
         if(this.limitedCount <= this.registeredCount){
-            throw new RuntimeException("신청 가능한 인원을 초과하였습니다.");
+            throw new IllegalArgumentException("신청 가능한 인원을 초과하였습니다.");
         }
         this.registeredCount++;
     }
@@ -53,10 +56,6 @@ public class Lecture extends BaseEntity {
 
     public int getLimitedCount() {
         return limitedCount;
-    }
-
-    public int getRegisteredCount() {
-        return registeredCount;
     }
 
     public LocalDateTime getStartDateTime() {

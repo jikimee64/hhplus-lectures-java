@@ -12,12 +12,12 @@ public class LectureRegistrations {
     private final LectureRegistrationRepository lectureRegistrationRepository;
     private final LectureRepository lectureRepository;
 
-    public LectureRegistration register(long userId, long lectureId) {
+    public LectureRegistration register(long lectureId, long userId) {
         Lecture lecture = lectureRepository.findById(lectureId);
         checkDuplicateRegistration(userId, lecture.getId());
         validateOverStartDateTime(lecture);
-        lecture.validateLimitedRegisterCount();
-        return new LectureRegistration(userId, lecture.getId());
+        lecture.increaseRegisterCount();
+        return new LectureRegistration(lecture.getId(), userId);
     }
 
     private void checkDuplicateRegistration(long userId, long lectureId) {
