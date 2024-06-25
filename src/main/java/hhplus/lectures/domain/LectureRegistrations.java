@@ -1,17 +1,19 @@
 package hhplus.lectures.domain;
 
-import java.util.ArrayList;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
+@Component
+@RequiredArgsConstructor
 public class LectureRegistrations {
 
-    private final List<LectureRegistration> lectureRegistrations;
+    private final LectureRegistrationRepository lectureRegistrationRepository;
+    private final LectureRepository lectureRepository;
 
-    public LectureRegistrations(List<LectureRegistration> lectureRegistrations) {
-        this.lectureRegistrations = new ArrayList<>(lectureRegistrations);
-    }
-
-    public LectureRegistration register(long userId, Lecture lecture) {
+    public LectureRegistration register(long userId, long lectureId) {
+        Lecture lecture = lectureRepository.findById(lectureId);
         checkDuplicateRegistration(userId, lecture.getId());
         validateOverStartDateTime(lecture);
         lecture.validateLimitedRegisterCount();
@@ -19,6 +21,7 @@ public class LectureRegistrations {
     }
 
     private void checkDuplicateRegistration(long userId, long lectureId) {
+        List<LectureRegistration> lectureRegistrations = lectureRegistrationRepository.findBy(lectureId, userId);
         boolean isDuplicate = lectureRegistrations.stream()
                 .anyMatch(registration -> registration.isSameBy(userId, lectureId));
 
@@ -32,4 +35,5 @@ public class LectureRegistrations {
             throw new RuntimeException("특강 시작일자가 이미 지났습니다.");
         }
     }
+
 }
