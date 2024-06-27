@@ -18,7 +18,9 @@ public interface LectureJpaRepository extends JpaRepository<Lecture, Long> {
                     ls.startDateTime,
                     ls.endDateTime
                 )
-                FROM Lecture l, LectureSchedule ls
+                 FROM Lecture l
+                 JOIN LectureSchedule ls ON l.id = ls.lectureId
+                order by l.id asc, ls.startDateTime asc
             """)
     List<LectureInfo> findAllLectureInfo();
 }

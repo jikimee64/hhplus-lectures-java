@@ -23,7 +23,6 @@ public class LectureController {
         lectureService.apply(request.lectureScheduleId(), request.userId());
     }
 
-    // 강의 스케줄유값도 Path Variable로 받도록 변경
     @GetMapping("/application/{lectureScheduleId}/{userId}")
     public LectureRegisterResultResponse selectUserAppliedForLecture(@PathVariable Long lectureScheduleId, @PathVariable Long userId) {
         return new LectureRegisterResultResponse(lectureService.hasUserAppliedForLecture(lectureScheduleId, userId));

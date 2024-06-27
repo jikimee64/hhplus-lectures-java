@@ -20,10 +20,10 @@ public class LectureRegistrations {
         return new LectureRegistration(lectureSchedule.getId(), userId);
     }
 
-    private void checkDuplicateRegistration(long userId, long lectureId) {
-        List<LectureRegistration> lectureRegistrations = lectureRegistrationRepository.findBy(lectureId, userId);
+    private void checkDuplicateRegistration(long userId, long lectureScheduleId) {
+        List<LectureRegistration> lectureRegistrations = lectureRegistrationRepository.findBy(lectureScheduleId, userId);
         boolean isDuplicate = lectureRegistrations.stream()
-                .anyMatch(registration -> registration.isSameBy(userId, lectureId));
+                .anyMatch(registration -> registration.isSameBy(userId, lectureScheduleId));
 
         if (isDuplicate) {
             throw new RuntimeException("이미 신청한 특강입니다.");

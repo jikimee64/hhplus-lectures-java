@@ -16,4 +16,9 @@ public class LectureScheduleRepositoryImpl implements LectureScheduleRepository 
         return lectureScheduleJpaRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("강의 스케줄이 존재하지 않습니다."));
     }
+
+    @Override
+    public LectureSchedule save(LectureSchedule lectureSchedule) {
+        return lectureScheduleJpaRepository.save(lectureSchedule);
+    }
 }

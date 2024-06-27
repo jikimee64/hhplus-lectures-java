@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface LectureRegistrationJpaRepository extends JpaRepository<LectureRegistration, Long>{
-    List<LectureRegistration> findByLectureIdAndUserId(Long lectureId, Long memberId);
+    List<LectureRegistration> findByLectureScheduleIdAndUserId(Long lectureScheduleId, Long memberId);
 }
