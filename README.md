@@ -28,8 +28,6 @@ erDiagram
     LECTURE_SCHEDULE{
         int id PK
         int lecture_id PK,FK
-        string name
-        string code
         int limited_count
         int registered_count
         localDateTime start_date
@@ -40,7 +38,7 @@ erDiagram
 
     LECTURE_REGISTRATION {
         int id PK
-        int lecture_id PK,FK
+        int lecture_schedule_id PK,FK
         int user_id PK,FK
         localDateTime created_at
         localDateTime updated_at
