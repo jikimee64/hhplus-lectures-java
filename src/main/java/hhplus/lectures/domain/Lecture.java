@@ -16,4 +16,7 @@ public class Lecture extends BaseEntity {
 
     private String name;
 
+    public Lecture(String name) {
+        this.name = name;
+    }
 }

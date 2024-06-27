@@ -10,14 +10,14 @@ import java.util.List;
 public class LectureRegistrations {
 
     private final LectureRegistrationRepository lectureRegistrationRepository;
-    private final LectureRepository lectureRepository;
+    private final LectureScheduleRepository lectureScheduleRepository;
 
-    public LectureRegistration register(long lectureId, long userId) {
-        Lecture lecture = lectureRepository.findById(lectureId);
-        checkDuplicateRegistration(userId, lecture.getId());
-        validateOverStartDateTime(lecture);
-        lecture.increaseRegisterCount();
-        return new LectureRegistration(lecture.getId(), userId);
+    public LectureRegistration register(long lectureScheduleId, long userId) {
+        LectureSchedule lectureSchedule = lectureScheduleRepository.findById(lectureScheduleId);
+        checkDuplicateRegistration(userId, lectureSchedule.getId());
+        validateOverStartDateTime(lectureSchedule);
+        lectureSchedule.increaseRegisterCount();
+        return new LectureRegistration(lectureSchedule.getId(), userId);
     }
 
     private void checkDuplicateRegistration(long userId, long lectureId) {
@@ -30,8 +30,8 @@ public class LectureRegistrations {
         }
     }
 
-    private void validateOverStartDateTime(Lecture lecture) {
-        if(lecture.isOverStartDateTime()) {
+    private void validateOverStartDateTime(LectureSchedule lectureSchedule) {
+        if(lectureSchedule.isOverStartDateTime()) {
             throw new RuntimeException("특강 시작일자가 이미 지났습니다.");
         }
     }

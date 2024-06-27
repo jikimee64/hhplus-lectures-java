@@ -17,17 +17,17 @@ public class LectureRegistration extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long lectureId;
+    private Long lectureScheduleId;
 
     private Long userId;
 
-    public LectureRegistration(Long lectureId, Long userId) {
-        this.lectureId = lectureId;
+    public LectureRegistration(Long lectureScheduleId, Long userId) {
+        this.lectureScheduleId = lectureScheduleId;
         this.userId = userId;
     }
 
-    public boolean isSameBy(long lectureId, long userId) {
-        return this.lectureId == lectureId && this.userId == userId;
+    public boolean isSameBy(long lectureScheduleId, long userId) {
+        return this.lectureScheduleId == lectureScheduleId && this.userId == userId;
     }
 
 }

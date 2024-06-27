@@ -1,10 +1,10 @@
 package hhplus.lectures.controller;
 
 import hhplus.lectures.application.LectureService;
-import hhplus.lectures.application.dto.LectureApplyRequest;
-import hhplus.lectures.application.dto.LectureRegisterResultResponse;
-import hhplus.lectures.application.dto.LectureSelectResponse;
-import hhplus.lectures.domain.Lecture;
+import hhplus.lectures.application.dto.LectureInfoApplicationDto;
+import hhplus.lectures.controller.dto.LectureApplyRequest;
+import hhplus.lectures.controller.dto.LectureRegisterResultResponse;
+import hhplus.lectures.controller.dto.LectureSelectResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -20,18 +20,18 @@ public class LectureController {
 
     @PostMapping("/apply")
     public void apply(@RequestBody @Valid LectureApplyRequest request) {
-        lectureService.apply(request.lectureId(), request.userId());
+        lectureService.apply(request.lectureScheduleId(), request.userId());
     }
 
-    // 강의 고유값도 Path Variable로 받도록 변경
-    @GetMapping("/application/{lectureId}/{userId}")
-    public LectureRegisterResultResponse selectUserAppliedForLecture(@PathVariable Long lectureId, @PathVariable Long userId) {
-        return new LectureRegisterResultResponse(lectureService.hasUserAppliedForLecture(lectureId, userId));
+    // 강의 스케줄유값도 Path Variable로 받도록 변경
+    @GetMapping("/application/{lectureScheduleId}/{userId}")
+    public LectureRegisterResultResponse selectUserAppliedForLecture(@PathVariable Long lectureScheduleId, @PathVariable Long userId) {
+        return new LectureRegisterResultResponse(lectureService.hasUserAppliedForLecture(lectureScheduleId, userId));
     }
 
     @GetMapping
-    public List<LectureSelectResponse> selectLectures() {
-        List<Lecture> lectures = lectureService.selectLectures();
-        return LectureSelectResponse.from(lectures);
+    public List<LectureSelectResponse> findLectures() {
+        List<LectureInfoApplicationDto> lectureInfos = lectureService.findLectures();
+        return LectureSelectResponse.from(lectureInfos);
     }
 }

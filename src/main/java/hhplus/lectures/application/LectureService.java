@@ -1,5 +1,6 @@
 package hhplus.lectures.application;
 
+import hhplus.lectures.application.dto.LectureInfoApplicationDto;
 import hhplus.lectures.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
@@ -16,6 +17,7 @@ public class LectureService {
 
     private final LectureRepository lectureRepository;
     private final LectureRegistrationRepository lectureRegistrationRepository;
+    private final LectureScheduleRepository lectureScheduleRepository;
     private final LectureRegistrations lectureRegistrations;
 
     @Retryable(
@@ -24,19 +26,20 @@ public class LectureService {
             backoff = @Backoff(delay = 100)
     )
     @Transactional
-    public void apply(long lectureId, long userId) {
-        LectureRegistration lectureRegistration = lectureRegistrations.register(lectureId, userId);
+    public void apply(long lectureScheduleId, long userId) {
+        LectureRegistration lectureRegistration = lectureRegistrations.register(lectureScheduleId, userId);
         lectureRegistrationRepository.save(lectureRegistration);
     }
 
     @Transactional(readOnly = true)
-    public boolean hasUserAppliedForLecture(long lectureId, long userId) {
-        List<LectureRegistration> lectureRegistrations = lectureRegistrationRepository.findBy(lectureId, userId);
+    public boolean hasUserAppliedForLecture(long lectureScheduleId, long userId) {
+        List<LectureRegistration> lectureRegistrations = lectureRegistrationRepository.findBy(lectureScheduleId, userId);
         return !lectureRegistrations.isEmpty();
     }
 
     @Transactional(readOnly = true)
-    public List<Lecture> selectLectures() {
-        return lectureRepository.findAll();
+    public List<LectureInfoApplicationDto> findLectures() {
+        List<LectureInfo> lectureInfos = lectureRepository.findAllLectureInfo();
+        return LectureInfoApplicationDto.from(lectureInfos);
     }
 }

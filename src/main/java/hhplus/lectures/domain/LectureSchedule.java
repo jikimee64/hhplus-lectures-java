@@ -14,7 +14,7 @@ public class LectureSchedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private Long lectureId;
 
     private int limitedCount;
 
@@ -27,8 +27,8 @@ public class LectureSchedule {
     @Version
     private Long version;
 
-    public LectureSchedule(String name, int limitedCount, int registeredCount, LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        this.name = name;
+    public LectureSchedule(Long lectureId, int limitedCount, int registeredCount, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        this.lectureId = lectureId;
         this.limitedCount = limitedCount;
         this.registeredCount = registeredCount;
         this.startDateTime = startDateTime;
@@ -50,8 +50,8 @@ public class LectureSchedule {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public Long getLectureId() {
+        return lectureId;
     }
 
     public int getLimitedCount() {
