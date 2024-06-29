@@ -4,6 +4,5 @@ import java.util.List;
 
 public interface LectureRepository {
     Lecture save(Lecture lecture);
-    Lecture findById(Long id);
-    List<Lecture> findAll();
+    List<LectureInfo> findAllLectureInfo();
 }

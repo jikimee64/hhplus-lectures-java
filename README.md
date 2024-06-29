@@ -21,6 +21,13 @@ erDiagram
         int id PK
         string name
         string code
+        localDateTime created_at
+        localDateTime updated_at
+    }
+
+    LECTURE_SCHEDULE {
+        int id PK
+        int lecture_id PK, FK
         int limited_count
         int registered_count
         localDateTime start_date
@@ -31,8 +38,8 @@ erDiagram
 
     LECTURE_REGISTRATION {
         int id PK
-        int lecture_id
-        int user_ud
+        int lecture_schedule_id PK, FK
+        int user_id PK, FK
         localDateTime created_at
         localDateTime updated_at
     }
@@ -42,4 +49,8 @@ erDiagram
         localDateTime created_at
         localDateTime updated_at
     }
+
+    LECTURE ||--o{ LECTURE_SCHEDULE: "has schedules"
+    LECTURE_SCHEDULE ||--o{ LECTURE_REGISTRATION: "has registrations"
+    USER ||--o{ LECTURE_REGISTRATION: "registers"
 ```
