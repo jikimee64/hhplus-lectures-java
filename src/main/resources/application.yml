@@ -1,9 +1,12 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create-drop
     open-in-view: false
     show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:lectures
@@ -12,9 +15,5 @@ spring:
 
 logging:
   level:
-    org:
-      hibernate:
-        SQL: DEBUG
-        type:
-          descriptor:
-            sql: trace
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
